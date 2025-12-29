@@ -1,13 +1,69 @@
 <html>
     <body>
-        <div id="message"></div>
+        <form id="addForm">
+            <input type="text" name="content">
+            <button type="submit">Create</button>
+        </form>
+        <div id="placeholder">
+            No Tasks
+        </div>
+        <ul id="list">
+        </ul>
+
         <script>
-            async function main () {
-                const response = await fetch('/api');
-                const data = await response.text();
-                message.textContent = data;
+            const tasks = []
+
+            const placeholder = document.getElementById("placholder")
+            const addForm = document.getElementById("addForm")
+            const list = document.getElementById("list")
+
+            addForm.addEventListener("submit", (event) => {
+                event.preventDefault()
+
+                const form = event.target
+                const formData = new FormData(form)
+                const content = formData.get("content")
+                addTask({ content })
+                form.reset()
+            })
+
+            function addTask (task) {
+                const item = document.createElement("li")
+                
+                const label = document.createElement("span")
+                label.textContent = task.content
+
+                const checkbox = document.createElement("input")
+                checkbox.setAttribute("type", "checkbox")
+                checkbox.addEventListener("change", (event) => {
+                    const done = event.checked
+                    updateDone(done)
+
+                    const taskExists = list.childNodes.length > 0
+                    if (taskExists) return
+
+                    placeholder.style.display = 'block'
+                    list.style.display = 'none'
+                })
+
+
+                const removeButton = document.createElement("button")
+                button.textContent = "Delete"
+                button.addEventListener("click", (event) => {
+                    item.remove()
+
+                })
+
+                function updateDone (done) {
+                    const textDecoration = done ? "strike" : "normal"
+                    const checked = done
+
+                    label.textDecoration = textDecoration
+                    checkbox.setAttribute("checked", checkbox)
+                }
+                placeholder.style.display = 'none'
+                list.style.display = 'block'
             }
-            main();
         </script>
     </body>
 </html>
