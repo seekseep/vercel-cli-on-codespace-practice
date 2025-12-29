@@ -42,8 +42,8 @@
                     const taskExists = list.childNodes.length > 0
                     if (taskExists) return
 
-                    placeholder.style.display = 'block'
-                    list.style.display = 'none'
+                    placeholder.styles.display = 'block'
+                    list.styles.display = 'none'
                 })
 
 
@@ -58,11 +58,11 @@
                     const textDecoration = done ? "strike" : "normal"
                     const checked = done
 
-                    label.textDecoration = textDecoration
+                    label.styles.textDecoration = textDecoration
                     checkbox.setAttribute("checked", checkbox)
                 }
-                placeholder.style.display = 'none'
-                list.style.display = 'block'
+                placeholder.styles.display = 'none'
+                list.styles.display = 'block'
             }
         </script>
     </body>
